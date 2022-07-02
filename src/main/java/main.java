@@ -1,4 +1,4 @@
-import com.sun.xml.internal.bind.v2.runtime.output.StAXExStreamWriterOutput;
+import java.util.Arrays;
 
 // Thread 클래스를 상속한 NumberThread 클래스 생성
 class NumberThread extends Thread {
@@ -9,6 +9,7 @@ class NumberThread extends Thread {
         }
     }
 }
+
 // Thread 클래스를 상속한 CharThread 클래스 생성
 class CharThread extends Thread {
     public void run() { // start 메소드로 호출
@@ -19,17 +20,70 @@ class CharThread extends Thread {
     }
 }
 
-public class main {
-    public static void main(String[] args) {
-        // NumberThread 클래스 인스턴스 생성
-        Thread thread1 = new NumberThread();
-        // CharThread 클래스 인스턴스 생성
-        Thread thread2 = new CharThread();
-
-        thread1.start(); // NumberThread 시작 (run 메소드 호출)
-        thread2.start(); // CharThread 시작 (run 메소드 호출)
+class dev1 {
+    public int[] solution(int[] lottos, int[] win_nums) {
+//        단순 배열
+        int cnt = 0;
+        int lucky = 0;
+        int unlucky = 0;
+        int molru = 0;
+        for (Integer lotto : lottos) {
+            if (lotto == 0) {
+                molru++;
+            }
+        }
+        for (Integer lotto : lottos) {
+            for (Integer win_num : win_nums){
+                if (lotto.equals(win_num)){
+                    cnt++;
+                }
+            }
+        }
+        switch (cnt) {
+            case 6:
+                unlucky = 1;
+                break;
+            case 5:
+                unlucky = 2;
+                break;
+            case 4:
+                unlucky = 3;
+                break;
+            case 3:
+                unlucky = 4;
+                break;
+            case 2:
+                unlucky = 5;
+                break;
+            default:
+                unlucky = 6;
+                break;
+        }
+        if (unlucky - molru <= 1) {
+            lucky = 1;
+        } else {
+            lucky = unlucky - molru;
+        }
+        return new int[]{lucky, unlucky};
     }
 }
+
+public class main {
+    public static void main(String[] args) {
+        int[] lottos = {44, 1, 0, 0, 31, 25};
+        int[] win_nums = {31, 10, 45, 1, 6, 19};
+        dev1 solution = new dev1();
+        System.out.println(Arrays.toString(solution.solution(lottos, win_nums)));
+    }
+}
+
+//        // NumberThread 클래스 인스턴스 생성
+//        Thread thread1 = new NumberThread();
+//        // CharThread 클래스 인스턴스 생성
+//        Thread thread2 = new CharThread();
+//
+//        thread1.start(); // NumberThread 시작 (run 메소드 호출)
+//        thread2.start(); // CharThread 시작 (run 메소드 호출)
 //        System.out.println("hello 월드");
 //
 //        int a = 10;
